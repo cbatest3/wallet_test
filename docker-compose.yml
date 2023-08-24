@@ -1,0 +1,21 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "3230:3230"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/db
+      - SECRET_KEY=your-secret-key
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    command: mongod --bind_ip_all --dbpath /data/db
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
