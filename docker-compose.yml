@@ -6,15 +6,11 @@ services:
     build: .
     ports:
       - "3230:3230"
-#    environment:
-#      - MONGO_URI=mongodb://mongo:27017/db
-#      - SECRET_KEY=your-secret-key
-    env_file:
-      - .env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/db
+      - SECRET_KEY=your-secret-key
     depends_on:
       - mongo
-    networks:
-      - wallet_test
   mongo:
     container_name: mongo
     image: mongo
@@ -23,7 +19,3 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
-
-networks:
-  wallet_test:
-    driver: bridge
